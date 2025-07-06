@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-card {
+            transition: all 0.2s ease;
+        }
+        .question-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        .admin-table th {
+            background-color: #f8fafc;
+        }
+        .admin-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <!-- Navbar -->
+        <nav class="flex justify-between items-center mb-8 pb-4 border-b-2 border-gray-200">
+            <h1 class="text-2xl font-bold text-indigo-600">Form Builder</h1>
+            <div>
+                <button id="switchView" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+                    Switch to Admin View
+                </button>
+            </div>
+        </nav>
+
+        <!-- Form View -->
+        <div id="formView" class="form-container fade-in">
+            <header class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Customer Feedback Survey</h2>
+                <p class="text-gray-500">Please take a few minutes to share your experience with us.</p>
+            </header>
+
+            <form id="surveyForm" class="space-y-6">
+                <!-- Short Answer Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">What is your name? <span class="text-red-500">*</span></label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Your name"
+                        >
+                    </div>
+                </div>
+
+                <!-- Email Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Email address <span class="text-red-500">*</span></label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="your.email@example.com"
+                        >
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-2">
+                        <label class="block text-gray-700 font-medium mb-2">How satisfied are you with our service? <span class="text-red-500">*</span></label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="satisfaction" value="Very Satisfied" required class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Very Satisfied</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="satisfaction" value="Satisfied" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Satisfied</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="satisfaction" value="Neutral" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Neutral</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="satisfaction" value="Unsatisfied" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Unsatisfied</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="satisfaction" value="Very Unsatisfied" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Very Unsatisfied</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checkbox Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-2">
+                        <label class="block text-gray-700 font-medium mb-2">Which features do you use most often? (Select all that apply)</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="features" value="Dashboard" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Dashboard</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="features" value="Reports" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Reports</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="features" value="Analytics" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Analytics</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="features" value="Notifications" class="text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2">Notifications</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dropdown Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">How often do you use our product?</label>
+                        <select name="usage" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="">Select an option</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Rarely">Rarely</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Long Answer Question -->
+                <div class="question-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Any additional comments or feedback?</label>
+                        <textarea 
+                            name="comments" 
+                            rows="4" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Your thoughts..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Submit Form
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Admin View (hidden by default) -->
+        <div id="adminView" class="hidden fade-in">
+            <header class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Form Responses</h2>
+                <p class="text-gray-500">View all submitted responses to your form.</p>
+            </header>
+
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-800">Recent Responses</h3>
+                        <div>
+                            <button id="exportCSV" class="px-4 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 mr-2">
+                                Export CSV
+                            </button>
+                            <button id="deleteAll" class="px-4 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                                Delete All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table id="responsesTable" class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Satisfaction</th>
+                                <th>Features</th>
+                                <th>Usage</th>
+                                <th>Comments</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="responsesBody">
+                            <!-- Responses will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="px-6 py-3 border-t border-gray-200 bg-gray-50">
+                    <p class="text-sm text-gray-500" id="responseCount">No responses yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4 fade-in">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900">Submission Successful!</h3>
+                    </div>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-500">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mt-2 text-gray-600">
+                    <p class="mb-4">Thank you for completing our form. Your feedback is valuable to us!</p>
+                    <button id="modalCloseBtn" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Backend Simulation
+        const backend = {
+            responses: [],
+            
+            // Initialize with some mock data
+            init() {
+                if (!localStorage.getItem('formResponses')) {
+                    this.responses = [
+                        {
+                            name: "Alex Johnson",
+                            email: "alex@example.com",
+                            satisfaction: "Very Satisfied",
+                            features: ["Dashboard", "Reports"],
+                            usage: "Daily",
+                            comments: "Great product! Really helps with my workflow.",
+                            date: "2023-05-15T09:30:00Z"
+                        },
+                        {
+                            name: "Sarah Williams",
+                            email: "sarah@example.com",
+                            satisfaction: "Satisfied",
+                            features: ["Analytics"],
+                            usage: "Weekly",
+                            comments: "Could use some improvements in the reporting features.",
+                            date: "2023-05-14T16:45:00Z"
+                        }
+                    ];
+                    this.saveResponses();
+                } else {
+                    this.loadResponses();
+                }
+            },
+            
+            saveResponses() {
+                localStorage.setItem('formResponses', JSON.stringify(this.responses));
+            },
+            
+            loadResponses() {
+                this.responses = JSON.parse(localStorage.getItem('formResponses')) || [];
+            },
+            
+            addResponse(responseData) {
+                // Prepare the response object
+                const response = {
+                    name: responseData.name,
+                    email: responseData.email,
+                    satisfaction: responseData.satisfaction,
+                    features: responseData.features || [],
+                    usage: responseData.usage || '',
+                    comments: responseData.comments || '',
+                    date: new Date().toISOString()
+                };
+                
+                this.responses.push(response);
+                this.saveResponses();
+                return response;
+            },
+            
+            deleteResponse(index) {
+                if (index >= 0 && index < this.responses.length) {
+                    this.responses.splice(index, 1);
+                    this.saveResponses();
+                    return true;
+                }
+                return false;
+            },
+            
+            clearResponses() {
+                this.responses = [];
+                this.saveResponses();
+            },
+            
+            getResponses() {
+                return [...this.responses];
+            }
+        };
+
+        // Frontend App
+        const app = {
+            currentView: 'form',
+            backend: backend,
+            
+            init() {
+                this.backend.init();
+                
+                // Event listeners
+                document.getElementById('switchView').addEventListener('click', () => this.toggleView());
+                document.getElementById('surveyForm').addEventListener('submit', (e) => this.handleFormSubmit(e));
+                document.getElementById('modalCloseBtn').addEventListener('click', () => this.closeModal());
+                document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
+                document.getElementById('exportCSV').addEventListener('click', () => this.exportCSV());
+                document.getElementById('deleteAll').addEventListener('click', () => {
+                    if (confirm('Are you sure you want to delete all responses? This cannot be undone.')) {
+                        this.backend.clearResponses();
+                        this.renderResponses();
+                    }
+                });
+                
+                // Initial render
+                this.renderResponses();
+            },
+            
+            toggleView() {
+                const formView = document.getElementById('formView');
+                const adminView = document.getElementById('adminView');
+                const switchBtn = document.getElementById('switchView');
+                
+                if (this.currentView === 'form') {
+                    formView.classList.add('hidden');
+                    adminView.classList.remove('hidden');
+                    switchBtn.textContent = 'Switch to Form View';
+                    this.currentView = 'admin';
+                } else {
+                    adminView.classList.add('hidden');
+                    formView.classList.remove('hidden');
+                    switchBtn.textContent = 'Switch to Admin View';
+                    this.currentView = 'form';
+                }
+            },
+            
+            handleFormSubmit(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const responseData = {};
+                
+                // Convert FormData to object
+                for (let [key, value] of formData.entries()) {
+                    if (key === 'features') {
+                        if (!responseData.features) {
+                            responseData.features = [];
+                        }
+                        responseData.features.push(value);
+                    } else {
+                        responseData[key] = value;
+                    }
+                }
+                
+                // Add to backend
+                this.backend.addResponse(responseData);
+                
+                // Show success modal
+                document.getElementById('successModal').classList.remove('hidden');
+                
+                // Update admin view if needed
+                this.renderResponses();
+                
+                // Reset form
+                e.target.reset();
+            },
+            
+            closeModal() {
+                document.getElementById('successModal').classList.add('hidden');
+            },
+            
+            renderResponses() {
+                const responsesBody = document.getElementById('responsesBody');
+                const responseCount = document.getElementById('responseCount');
+                const responses = this.backend.getResponses();
+                
+                // Clear existing rows
+                responsesBody.innerHTML = '';
+                
+                if (responses.length === 0) {
+                    responseCount.textContent = 'No responses yet';
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="8" class="text-center py-4 text-gray-500">No responses recorded yet</td>';
+                    responsesBody.appendChild(row);
+                    return;
+                }
+                
+                responseCount.textContent = `${responses.length} ${responses.length === 1 ? 'response' : 'responses'}`;
+                
+                // Add each response to the table
+                responses.forEach((response, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Format date
+                    const date = new Date(response.date);
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    // Format features
+                    const featuresText = response.features.length > 0 
+                        ? response.features.join(', ') 
+                        : 'None selected';
+                    
+                    row.innerHTML = `
+                        <td class="font-medium">${response.name}</td>
+                        <td>${response.email}</td>
+                        <td>${response.satisfaction}</td>
+                        <td>${featuresText}</td>
+                        <td>${response.usage || 'Not answered'}</td>
+                        <td>${response.comments || 'None'}</td>
+                        <td>${formattedDate}</td>
+                        <td>
+                            <button class="delete-btn px-2 py-1 text-red-600 hover:text-red-800" data-index="${index}">
+                                Delete
+                            </button>
+                        </td>
+                    `;
+                    
+                    responsesBody.appendChild(row);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.dataset.index);
+                        if (confirm('Are you sure you want to delete this response?')) {
+                            this.backend.deleteResponse(index);
+                            this.renderResponses();
+                        }
+                    });
+                });
+            },
+            
+            exportCSV() {
+                const responses = this.backend.getResponses();
+                if (responses.length === 0) {
+                    alert('No responses to export');
+                    return;
+                }
+                
+                // CSV header
+                let csv = 'Name,Email,Satisfaction,Features,Usage,Comments,Date\n';
+                
+                // Add each response
+                responses.forEach(response => {
+                    const featuresText = response.features.length > 0 
+                        ? `"${response.features.join(', ')}"` 
+                        : '';
+                    
+                    const comments = response.comments 
+                        ? `"${response.comments.replace(/"/g, '""')}"` 
+                        : '';
+                    
+                    csv += `"${response.name.replace(/"/g, '""')}",`;
+                    csv += `"${response.email.replace(/"/g, '""')}",`;
+                    csv += `"${response.satisfaction.replace(/"/g, '""')}",`;
+                    csv += `${featuresText},`;
+                    csv += `"${response.usage.replace(/"/g, '""')}",`;
+                    csv += `${comments},`;
+                    csv += `"${new Date(response.date).toLocaleString()}"\n`;
+                });
+                
+                // Create download link
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', `form-responses-${new Date().toISOString().slice(0,10)}.csv`);
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
